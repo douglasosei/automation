@@ -1,0 +1,87 @@
+---
+title: Ansible Playbook Grapher
+---
+%%{ init: { "flowchart": { "curve": "bumpX" } } }%%
+flowchart LR
+	%% Start of the playbook 'site.yml'
+	playbook_4d067fa3("site.yml")
+		%% Start of the play 'Play: all (2)'
+		play_5854958e["Play: all (2)"]
+		style play_5854958e fill:#ccaf00,color:#ffffff
+		playbook_4d067fa3 --> |"1"| play_5854958e
+		linkStyle 0 stroke:#ccaf00,color:#ccaf00
+			pre_task_735a1b5c["[pre_task]  update repository index (ubuntu)"]
+			style pre_task_735a1b5c stroke:#ccaf00,fill:#ffffff
+			play_5854958e --> |"1 [when: ansible_distribution == 'Ubuntu']"| pre_task_735a1b5c
+			linkStyle 1 stroke:#ccaf00,color:#ccaf00
+			pre_task_ddb50933["[pre_task]  update repository index (CentOS)"]
+			style pre_task_ddb50933 stroke:#ccaf00,fill:#ffffff
+			play_5854958e --> |"2 [when: ansible_distribution == 'CentOS']"| pre_task_ddb50933
+			linkStyle 2 stroke:#ccaf00,color:#ccaf00
+		%% End of the play 'Play: all (2)'
+		%% Start of the play 'Play: all (2)'
+		play_4135b493["Play: all (2)"]
+		style play_4135b493 fill:#bc4910,color:#ffffff
+		playbook_4d067fa3 --> |"2"| play_4135b493
+		linkStyle 3 stroke:#bc4910,color:#bc4910
+			%% Start of the role 'base'
+			play_4135b493 --> |"1"| role_dd9dcf6c
+			linkStyle 4 stroke:#bc4910,color:#bc4910
+			role_dd9dcf6c("[role] base")
+			style role_dd9dcf6c fill:#bc4910,color:#ffffff,stroke:#bc4910
+				task_e6b1361a[" base : add ssh key for simone"]
+				style task_e6b1361a stroke:#bc4910,fill:#ffffff
+				role_dd9dcf6c --> |"1"| task_e6b1361a
+				linkStyle 5 stroke:#bc4910,color:#bc4910
+			%% End of the role 'base'
+		%% End of the play 'Play: all (2)'
+		%% Start of the play 'Play: web_servers (1)'
+		play_190d3396["Play: web_servers (1)"]
+		style play_190d3396 fill:#72a428,color:#ffffff
+		playbook_4d067fa3 --> |"3"| play_190d3396
+		linkStyle 6 stroke:#72a428,color:#72a428
+			%% Start of the role 'web_servers'
+			play_190d3396 --> |"1"| role_9a0da213
+			linkStyle 7 stroke:#72a428,color:#72a428
+			role_9a0da213("[role] web_servers")
+			style role_9a0da213 fill:#72a428,color:#ffffff,stroke:#72a428
+				task_68225ce4[" web_servers : install apache and php for Ubuntu Servers"]
+				style task_68225ce4 stroke:#72a428,fill:#ffffff
+				role_9a0da213 --> |"1"| task_68225ce4
+				linkStyle 8 stroke:#72a428,color:#72a428
+				task_1c150531[" web_servers : Start and enable apache service"]
+				style task_1c150531 stroke:#72a428,fill:#ffffff
+				role_9a0da213 --> |"2"| task_1c150531
+				linkStyle 9 stroke:#72a428,color:#72a428
+				task_08647bd8[" web_servers : copy html file for site"]
+				style task_08647bd8 stroke:#72a428,fill:#ffffff
+				role_9a0da213 --> |"3"| task_08647bd8
+				linkStyle 10 stroke:#72a428,color:#72a428
+				task_63342c1f[" web_servers : install unzip"]
+				style task_63342c1f stroke:#72a428,fill:#ffffff
+				role_9a0da213 --> |"4"| task_63342c1f
+				linkStyle 11 stroke:#72a428,color:#72a428
+			%% End of the role 'web_servers'
+		%% End of the play 'Play: web_servers (1)'
+		%% Start of the play 'Play: db_servers (1)'
+		play_72c86651["Play: db_servers (1)"]
+		style play_72c86651 fill:#bb11a0,color:#ffffff
+		playbook_4d067fa3 --> |"4"| play_72c86651
+		linkStyle 12 stroke:#bb11a0,color:#bb11a0
+			%% Start of the role 'db_servers'
+			play_72c86651 --> |"1"| role_4075f7c2
+			linkStyle 13 stroke:#bb11a0,color:#bb11a0
+			role_4075f7c2("[role] db_servers")
+			style role_4075f7c2 fill:#bb11a0,color:#ffffff,stroke:#bb11a0
+				task_989fe96d[" db_servers : install mariadb server (Ubuntu)"]
+				style task_989fe96d stroke:#bb11a0,fill:#ffffff
+				role_4075f7c2 --> |"1 [when: ansible_distribution == 'Ubuntu']"| task_989fe96d
+				linkStyle 14 stroke:#bb11a0,color:#bb11a0
+				task_1d411c32[" db_servers : install mariadb server package (CentOS)"]
+				style task_1d411c32 stroke:#bb11a0,fill:#ffffff
+				role_4075f7c2 --> |"2 [when: ansible_distribution == 'CentOS']"| task_1d411c32
+				linkStyle 15 stroke:#bb11a0,color:#bb11a0
+			%% End of the role 'db_servers'
+		%% End of the play 'Play: db_servers (1)'
+	%% End of the playbook 'site.yml'
+
